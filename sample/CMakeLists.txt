@@ -1,1 +1,3 @@
+INCLUDE_DIRECTORIES(../src)
+
 ADD_EXECUTABLE(sort Sort.cpp)
