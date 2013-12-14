@@ -7,7 +7,8 @@ namespace mach5 {
 	
 	void BenchmarkRunner::runAll() {
 		for (auto benchmark : _benchmarks) {
-			benchmark->run();
+			auto result = benchmark->run();
+			result.str();
 		}
 	}
 }
