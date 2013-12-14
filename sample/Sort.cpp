@@ -2,6 +2,7 @@
 #include <vector>
 
 #include "Benchmark.hpp"
+#include "BenchmarkRunner.hpp"
 
 using namespace mach5;
 
@@ -30,6 +31,7 @@ void SelectionSortBenchmark::run() {
 }
 
 int main() {
-	BenchmarkPtr bench = BenchmarkPtr(new SelectionSortBenchmark());
-	bench->run();
+	BenchmarkRunnerPtr runner = BenchmarkRunnerPtr(new BenchmarkRunner());
+	runner->addBenchmark(BenchmarkPtr(new SelectionSortBenchmark()));
+	runner->runAll();
 }
