@@ -8,10 +8,10 @@ using namespace mach5;
 
 class SelectionSortBenchmark : public Benchmark {
 public:
-	virtual void run();
+	virtual void code();
 };
 
-void SelectionSortBenchmark::run() {
+void SelectionSortBenchmark::code() {
 	std::cout << "Running..." << std::endl;
 	std::vector<int> num = {0, 9, 8, 7, 6, 5, 4, 3, 2, 1};
 	int tam = num.size();

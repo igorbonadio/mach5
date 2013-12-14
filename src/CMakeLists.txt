@@ -1,5 +1,6 @@
 set(sources
-   BenchmarkRunner.cpp
+   Benchmark.cpp
+	 BenchmarkRunner.cpp
    )
 
 add_library(mach5 SHARED

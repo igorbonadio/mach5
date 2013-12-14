@@ -6,7 +6,8 @@
 namespace mach5 {
 	class Benchmark {
 	public:
-		virtual void run() = 0;
+		virtual void code() = 0;
+		void run();
 	};
 	
 	typedef std::shared_ptr<Benchmark> BenchmarkPtr;
