@@ -13,7 +13,6 @@ public:
 };
 
 void SelectionSortBenchmark::code() {
-	std::cout << "Running SelectionSortBenchmark..." << std::endl;
 	std::vector<int> num = {0, 9, 8, 7, 6, 5, 4, 3, 2, 1};
 	int tam = num.size();
 	for (int i = 0; i < (tam-1); i++) {
@@ -37,14 +36,15 @@ public:
 };
 
 void SortBenchmark::code() {
-	std::cout << "Running SortBenchmark..." << std::endl;
 	std::vector<int> num = {0, 9, 8, 7, 6, 5, 4, 3, 2, 1};
 	std::sort(num.begin(), num.end());
 }
 
 int main() {
 	BenchmarkRunnerPtr runner = BenchmarkRunnerPtr(new BenchmarkRunner());
-	runner->addBenchmark(BenchmarkPtr(new SelectionSortBenchmark()));
-	runner->addBenchmark(BenchmarkPtr(new SortBenchmark()));
-	runner->runAll();
+	runner->addBenchmark(BenchmarkPtr(new SelectionSortBenchmark()), "SelectionSort");
+	runner->addBenchmark(BenchmarkPtr(new SortBenchmark()), "Sort");
+	auto results = runner->runAll();
+	for (auto result : results)
+		result.str();
 }

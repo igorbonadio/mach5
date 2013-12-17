@@ -2,17 +2,19 @@
 #define MACH5_BENCHMARK_RUNNER_HPP 
 
 #include <vector>
+#include <string>
 #include <memory>
 
 #include "Benchmark.hpp"
+#include "BenchmarkDescriptor.hpp"
 
 namespace mach5 {
 	class BenchmarkRunner {
 	public:
-		void addBenchmark(BenchmarkPtr benchmark);
-		void runAll();
+		void addBenchmark(BenchmarkPtr benchmark, std::string benchmark_name);
+		std::vector<Result> runAll();
 	private:
-		std::vector<BenchmarkPtr> _benchmarks;
+		std::vector<BenchmarkDescriptorPtr> _descriptors;
 	};
 	
 	typedef std::shared_ptr<BenchmarkRunner> BenchmarkRunnerPtr;
