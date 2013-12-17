@@ -7,11 +7,17 @@
 
 #include "Benchmark.hpp"
 #include "BenchmarkDescriptor.hpp"
+#include "BenchmarkFactory.hpp"
 
 namespace mach5 {
 	class BenchmarkRunner {
 	public:
-		void addBenchmark(BenchmarkPtr benchmark, std::string benchmark_name, int runs, int iterations);
+		// void addBenchmark(AbstractBenchmarkFactory benchmark, std::string benchmark_name, int runs, int iterations);
+		template <class T>
+		void addBenchmark(std::string benchmark_name, int runs, int iterations) {
+			AbstractBenchmarkFactoryPtr benchmarkFactory = AbstractBenchmarkFactoryPtr(new BenchmarkFactory<T>());
+			_descriptors.push_back(BenchmarkDescriptorPtr(new BenchmarkDescriptor(benchmarkFactory, benchmark_name, runs, iterations)));
+		}
 		std::vector<BenchmarkResult> runAll();
 	private:
 		BenchmarkResult run(BenchmarkDescriptorPtr descriptor);

@@ -1,8 +1,8 @@
 #include "BenchmarkDescriptor.hpp"
 
 namespace mach5 {
-	BenchmarkPtr BenchmarkDescriptor::benchmark() {
-		return _benchmark;
+	AbstractBenchmarkFactoryPtr BenchmarkDescriptor::benchmarkFactory() {
+		return _benchmarkFactory;
 	}
 	
 	int BenchmarkDescriptor::runs() {
