@@ -12,9 +12,9 @@ namespace mach5 {
 	class BenchmarkRunner {
 	public:
 		void addBenchmark(BenchmarkPtr benchmark, std::string benchmark_name, int runs, int iterations);
-		std::vector<Result> runAll();
+		std::vector<BenchmarkResult> runAll();
 	private:
-		Result run(BenchmarkDescriptorPtr descriptor);
+		BenchmarkResult run(BenchmarkDescriptorPtr descriptor);
 		std::vector<BenchmarkDescriptorPtr> _descriptors;
 	};
 	

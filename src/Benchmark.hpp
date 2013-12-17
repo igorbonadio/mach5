@@ -3,13 +3,13 @@
 
 #include <memory>
 
-#include "Result.hpp"
+#include "BenchmarkResult.hpp"
 
 namespace mach5 {
 	class Benchmark {
 	public:
 		virtual void code() = 0;
-		Result run();
+		BenchmarkResult run();
 	};
 	
 	typedef std::shared_ptr<Benchmark> BenchmarkPtr;

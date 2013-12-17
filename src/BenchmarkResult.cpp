@@ -1,12 +1,12 @@
-#include "Result.hpp"
+#include "BenchmarkResult.hpp"
 
 #include <iostream>
 
 namespace mach5 {
-	double Result::duration() {
+	double BenchmarkResult::duration() {
 		return _duration;
 	}
-	void Result::str() {
+	void BenchmarkResult::str() {
 		std::cout << _duration << std::endl;
 	}
 }
