@@ -12,7 +12,7 @@ namespace mach5 {
 	BenchmarkResult BenchmarkRunner::run(BenchmarkDescriptorPtr descriptor) {
 		double total = 0;
 		for (int i = 0; i < descriptor->runs(); i++) {
-			BenchmarkResult r = descriptor->benchmarkFactory()->build()->run();
+			BenchmarkResult r = descriptor->benchmarkFactory()->build()->run(descriptor->iterations());
 			total += r.duration();
 		}
 		return BenchmarkResult(total/descriptor->runs());

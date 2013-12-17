@@ -9,7 +9,7 @@ namespace mach5 {
 		return _runs;
 	}
 	
-	int BenchmarkDescriptor::terations() {
+	int BenchmarkDescriptor::iterations() {
 		return _iterations;
 	}
 }

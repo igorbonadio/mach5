@@ -14,7 +14,7 @@ namespace mach5 {
 		
 		AbstractBenchmarkFactoryPtr benchmarkFactory();
 		int runs();
-		int terations();
+		int iterations();
 		
 	private:
 		AbstractBenchmarkFactoryPtr _benchmarkFactory;
