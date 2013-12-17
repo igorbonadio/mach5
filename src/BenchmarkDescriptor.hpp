@@ -9,15 +9,26 @@
 namespace mach5 {
 	class BenchmarkDescriptor {
 	public:
-		BenchmarkDescriptor(BenchmarkPtr benchmark, std::string benchmark_name):_benchmark(benchmark), _benchmark_name(benchmark_name) {}
+		BenchmarkDescriptor(BenchmarkPtr benchmark, std::string benchmark_name, int runs, int iterations):
+			_benchmark(benchmark), _benchmark_name(benchmark_name), _runs(runs), _iterations(iterations) {}
 		
 		BenchmarkPtr benchmark() {
 			return _benchmark;
 		}
 		
+		int runs() {
+			return _runs;
+		}
+		
+		int terations() {
+			return _iterations;
+		}
+		
 	private:
 		BenchmarkPtr _benchmark;
 		std::string _benchmark_name;
+		int _runs;
+		int _iterations;
 	};
 	
 	typedef std::shared_ptr<BenchmarkDescriptor> BenchmarkDescriptorPtr;

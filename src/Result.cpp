@@ -3,8 +3,10 @@
 #include <iostream>
 
 namespace mach5 {
+	double Result::duration() {
+		return _duration;
+	}
 	void Result::str() {
-		auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(_t2 - _t1);
-		std::cout << time_span.count() << std::endl;
+		std::cout << _duration << std::endl;
 	}
 }

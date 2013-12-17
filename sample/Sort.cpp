@@ -42,8 +42,8 @@ void SortBenchmark::code() {
 
 int main() {
 	BenchmarkRunnerPtr runner = BenchmarkRunnerPtr(new BenchmarkRunner());
-	runner->addBenchmark(BenchmarkPtr(new SelectionSortBenchmark()), "SelectionSort");
-	runner->addBenchmark(BenchmarkPtr(new SortBenchmark()), "Sort");
+	runner->addBenchmark(BenchmarkPtr(new SelectionSortBenchmark()), "SelectionSort", 10, 10);
+	runner->addBenchmark(BenchmarkPtr(new SortBenchmark()), "Sort", 10, 10);
 	auto results = runner->runAll();
 	for (auto result : results)
 		result.str();
