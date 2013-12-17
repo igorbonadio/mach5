@@ -12,17 +12,9 @@ namespace mach5 {
 		BenchmarkDescriptor(BenchmarkPtr benchmark, std::string benchmark_name, int runs, int iterations):
 			_benchmark(benchmark), _benchmark_name(benchmark_name), _runs(runs), _iterations(iterations) {}
 		
-		BenchmarkPtr benchmark() {
-			return _benchmark;
-		}
-		
-		int runs() {
-			return _runs;
-		}
-		
-		int terations() {
-			return _iterations;
-		}
+		BenchmarkPtr benchmark();
+		int runs();
+		int terations();
 		
 	private:
 		BenchmarkPtr _benchmark;
