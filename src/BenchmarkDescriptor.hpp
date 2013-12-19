@@ -13,6 +13,7 @@ namespace mach5 {
 			_benchmarkFactory(benchmarkFactory), _benchmark_name(benchmark_name), _runs(runs), _iterations(iterations) {}
 		
 		AbstractBenchmarkFactoryPtr benchmarkFactory();
+		std::string name();
 		int runs();
 		int iterations();
 		

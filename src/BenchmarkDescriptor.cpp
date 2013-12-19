@@ -12,4 +12,8 @@ namespace mach5 {
 	int BenchmarkDescriptor::iterations() {
 		return _iterations;
 	}
+	
+	std::string BenchmarkDescriptor::name() {
+		return _benchmark_name;
+	}
 }
