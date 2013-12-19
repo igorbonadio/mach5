@@ -14,11 +14,17 @@ namespace mach5 {
 	public:
 		// void addBenchmark(AbstractBenchmarkFactory benchmark, std::string benchmark_name, int runs, int iterations);
 		template <class T>
-		void addBenchmark(std::string benchmark_name, int runs, int iterations) {
+		AbstractBenchmarkFactoryPtr addBenchmark(std::string benchmark_name, int runs, int iterations) {
 			AbstractBenchmarkFactoryPtr benchmarkFactory = AbstractBenchmarkFactoryPtr(new BenchmarkFactory<T>());
 			_descriptors.push_back(BenchmarkDescriptorPtr(new BenchmarkDescriptor(benchmarkFactory, benchmark_name, runs, iterations)));
+			return benchmarkFactory;
 		}
 		std::vector<BenchmarkResult> runAll();
+		
+		static BenchmarkRunner& instance() {
+			static BenchmarkRunner singleton;
+			return singleton;
+		}
 	private:
 		BenchmarkResult run(BenchmarkDescriptorPtr descriptor);
 		std::vector<BenchmarkDescriptorPtr> _descriptors;
