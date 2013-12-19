@@ -3,7 +3,10 @@
 #include <iostream>
 
 namespace mach5 {
-	void BenchmarkResult::str() {
-		std::cout << _duration << std::endl;
+	void BenchmarkResult::yaml() {
+		std::cout << _benchmark_name << ":" << std::endl;
+		std::cout << "\truns: " << _runs << std::endl;
+		std::cout << "\titerations: " << _iterations << std::endl;
+		std::cout << "\tduration: " << _duration << std::endl;
 	}
 }
