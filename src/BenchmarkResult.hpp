@@ -8,7 +8,7 @@ namespace mach5 {
 	class BenchmarkResult {
 	public:
 		BenchmarkResult(std::string benchmark_name, int runs, int iterations, double duration):_benchmark_name(benchmark_name),_runs(runs),_iterations(iterations),_duration(duration) {}
-		void yaml();
+		std::string yaml();
 	private:
 		std::string _benchmark_name;
 		int _runs;

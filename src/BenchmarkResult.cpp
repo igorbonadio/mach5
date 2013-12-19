@@ -1,12 +1,14 @@
 #include "BenchmarkResult.hpp"
 
-#include <iostream>
+#include <sstream>
 
 namespace mach5 {
-	void BenchmarkResult::yaml() {
-		std::cout << _benchmark_name << ":" << std::endl;
-		std::cout << "\truns: " << _runs << std::endl;
-		std::cout << "\titerations: " << _iterations << std::endl;
-		std::cout << "\tduration: " << _duration << std::endl;
+	std::string BenchmarkResult::yaml() {
+		std::ostringstream output;
+		output << _benchmark_name << ":" << std::endl;
+		output << "\truns: " << _runs << std::endl;
+		output << "\titerations: " << _iterations << std::endl;
+		output << "\tduration: " << _duration << std::endl;
+		return output.str();
 	}
 }

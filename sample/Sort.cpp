@@ -46,5 +46,5 @@ int main() {
 	runner->addBenchmark<SortBenchmark>("Sort", 100, 100);
 	auto results = runner->runAll();
 	for (auto result : results)
-		result.yaml();
+		std::cout << result.yaml();
 }
