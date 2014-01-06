@@ -2,19 +2,9 @@
 #include <vector>
 #include <algorithm>
 
-#include "Benchmark.hpp"
-#include "BenchmarkRunner.hpp"
+#include "Mach5.hpp"
 
-using namespace mach5;
-
-class SelectionSortBenchmark : public Benchmark {
-public:
-	virtual void code();
-};
-
-const auto _SelectionSortBenchmarkFactory = BenchmarkRunner::instance().addBenchmark<SelectionSortBenchmark>("SelectionSort", 100, 100);
-
-void SelectionSortBenchmark::code() {
+BENCHMARK(SelectionSort) {
 	std::vector<int> num = {0, 9, 8, 7, 6, 5, 4, 3, 2, 1};
 	int tam = num.size();
 	for (int i = 0; i < (tam-1); i++) {
@@ -32,14 +22,7 @@ void SelectionSortBenchmark::code() {
 	}
 }
 
-class SortBenchmark : public Benchmark {
-public:
-	virtual void code();
-};
-
-const auto _SortBenchmarkFactory = BenchmarkRunner::instance().addBenchmark<SortBenchmark>("Sort", 100, 100);
-
-void SortBenchmark::code() {
+BENCHMARK(Sort) {
 	std::vector<int> num = {0, 9, 8, 7, 6, 5, 4, 3, 2, 1};
 	std::sort(num.begin(), num.end());
 }
