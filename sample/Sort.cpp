@@ -4,8 +4,12 @@
 
 #include "Mach5.hpp"
 
-BENCHMARK(SelectionSort, 100, 200) {
+class ArrayOfNumbers : public BenchmarkFixture {
+public:
 	std::vector<int> num = {0, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+};
+
+BENCHMARK_F(ArrayOfNumbers, SelectionSort, 100, 200) {
 	int tam = num.size();
 	for (int i = 0; i < (tam-1); i++) {
 		int min = i;
@@ -22,8 +26,7 @@ BENCHMARK(SelectionSort, 100, 200) {
 	}
 }
 
-BENCHMARK(Sort, 100, 100) {
-	std::vector<int> num = {0, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+BENCHMARK_F(ArrayOfNumbers, Sort, 100, 100) {
 	std::sort(num.begin(), num.end());
 }
 

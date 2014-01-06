@@ -18,6 +18,12 @@ using namespace mach5;
     virtual void code(); \
   };
 
+#define _BENCHMARK_F_CLASS(benchmark_fixture, benchmark_name) \
+  class _BENCHMARK_NAME(benchmark_name) : public benchmark_fixture { \
+  public: \
+    virtual void code(); \
+  };
+
 #define _BENCHMARK_FACTORY(benchmark_name, benchmark_runs, benchmark_iterations) \
   const auto _BENCHMARK_FACTORY_NAME(benchmark_name) = BenchmarkRunner::instance().addBenchmark<_BENCHMARK_NAME(benchmark_name)>(#benchmark_name, benchmark_runs, benchmark_iterations);
 
@@ -26,6 +32,11 @@ using namespace mach5;
 
 #define BENCHMARK(benchmark_name, benchmark_runs, benchmark_iterations) \
   _BENCHMARK_CLASS(benchmark_name) \
+  _BENCHMARK_FACTORY(benchmark_name, benchmark_runs, benchmark_iterations) \
+  _BENCHMARK_CODE(benchmark_name)
+
+#define BENCHMARK_F(benchmark_fixture, benchmark_name, benchmark_runs, benchmark_iterations) \
+  _BENCHMARK_F_CLASS(benchmark_fixture, benchmark_name) \
   _BENCHMARK_FACTORY(benchmark_name, benchmark_runs, benchmark_iterations) \
   _BENCHMARK_CODE(benchmark_name)
 

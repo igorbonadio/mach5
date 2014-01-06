@@ -9,12 +9,17 @@ namespace mach5 {
 	class Benchmark {
 	public:
 		virtual void code() = 0;
+    virtual void setUp() {};
+    virtual void tearDown() {};
+
 		double run(int iterations) {
       double total = 0;
       for (int i = 0; i < iterations; i++) {
+        setUp();
         auto t1 = std::chrono::high_resolution_clock::now();
         code();
         auto t2 = std::chrono::high_resolution_clock::now();
+        tearDown();
         auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
         total += time_span.count();
       }
@@ -23,6 +28,7 @@ namespace mach5 {
 	};
 
 	typedef std::shared_ptr<Benchmark> BenchmarkPtr;
+  typedef Benchmark BenchmarkFixture;
 }
 
 #endif
