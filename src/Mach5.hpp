@@ -18,15 +18,15 @@ using namespace mach5;
     virtual void code(); \
   };
 
-#define _BENCHMARK_FACTORY(benchmark_name) \
-  const auto _BENCHMARK_FACTORY_NAME(benchmark_name) = BenchmarkRunner::instance().addBenchmark<_BENCHMARK_NAME(benchmark_name)>(#benchmark_name, 100, 100);
+#define _BENCHMARK_FACTORY(benchmark_name, benchmark_runs, benchmark_iterations) \
+  const auto _BENCHMARK_FACTORY_NAME(benchmark_name) = BenchmarkRunner::instance().addBenchmark<_BENCHMARK_NAME(benchmark_name)>(#benchmark_name, benchmark_runs, benchmark_iterations);
 
 #define _BENCHMARK_CODE(benchmark_name) \
   void _BENCHMARK_NAME(benchmark_name)::code()
 
-#define BENCHMARK(benchmark_name) \
+#define BENCHMARK(benchmark_name, benchmark_runs, benchmark_iterations) \
   _BENCHMARK_CLASS(benchmark_name) \
-  _BENCHMARK_FACTORY(benchmark_name) \
+  _BENCHMARK_FACTORY(benchmark_name, benchmark_runs, benchmark_iterations) \
   _BENCHMARK_CODE(benchmark_name)
 
 #endif
