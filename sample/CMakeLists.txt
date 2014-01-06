@@ -1,5 +1,3 @@
 INCLUDE_DIRECTORIES(../src)
 
 ADD_EXECUTABLE(sort Sort.cpp)
-
-TARGET_LINK_LIBRARIES(sort mach5)
