@@ -4,7 +4,7 @@
 
 #include "Mach5.hpp"
 
-class ArrayOfNumbers : public BenchmarkFixture {
+class ArrayOfNumbers : public ::mach5::BenchmarkFixture {
 public:
 	std::vector<int> num = {0, 9, 8, 7, 6, 5, 4, 3, 2, 1};
 };
@@ -31,7 +31,7 @@ BENCHMARK_F(ArrayOfNumbers, Sort, 100, 100) {
 }
 
 int main() {
-	auto results = BenchmarkRunner::instance().runAll();
+	auto results = ::mach5::BenchmarkRunner::instance().runAll();
 	for (auto result : results)
 		std::cout << result.yaml();
 }

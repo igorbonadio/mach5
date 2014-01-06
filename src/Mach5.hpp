@@ -4,8 +4,6 @@
 #include "Benchmark.hpp"
 #include "BenchmarkRunner.hpp"
 
-using namespace mach5;
-
 #define _BENCHMARK_NAME(benchmark_name) \
   benchmark_name ## Benchmark
 
@@ -25,7 +23,7 @@ using namespace mach5;
   };
 
 #define _BENCHMARK_FACTORY(benchmark_name, benchmark_runs, benchmark_iterations) \
-  const auto _BENCHMARK_FACTORY_NAME(benchmark_name) = BenchmarkRunner::instance().addBenchmark<_BENCHMARK_NAME(benchmark_name)>(#benchmark_name, benchmark_runs, benchmark_iterations);
+  const auto _BENCHMARK_FACTORY_NAME(benchmark_name) = ::mach5::BenchmarkRunner::instance().addBenchmark<_BENCHMARK_NAME(benchmark_name)>(#benchmark_name, benchmark_runs, benchmark_iterations);
 
 #define _BENCHMARK_CODE(benchmark_name) \
   void _BENCHMARK_NAME(benchmark_name)::code()
