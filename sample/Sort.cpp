@@ -1,4 +1,3 @@
-#include <iostream>
 #include <vector>
 #include <algorithm>
 
@@ -9,6 +8,7 @@ public:
 	std::vector<int> num = {0, 9, 8, 7, 6, 5, 4, 3, 2, 1};
 };
 
+// Benchmark using a fixture class
 BENCHMARK_F(SortingNumberWith, SelectionSort, 100, 200) {
 	int tam = num.size();
 	for (int i = 0; i < (tam-1); i++) {
@@ -26,13 +26,8 @@ BENCHMARK_F(SortingNumberWith, SelectionSort, 100, 200) {
 	}
 }
 
+// A single and simple benchmark
 BENCHMARK(DefaultCppSort, 100, 100) {
 	std::vector<int> num = {0, 9, 8, 7, 6, 5, 4, 3, 2, 1};
 	std::sort(num.begin(), num.end());
-}
-
-int main() {
-	auto results = ::mach5::BenchmarkRunner::instance().runAll();
-	for (auto result : results)
-		std::cout << result.yaml();
 }

@@ -1,3 +1,8 @@
 INCLUDE_DIRECTORIES(../src)
 
-ADD_EXECUTABLE(sort Sort.cpp)
+SET(sources
+  main.cpp
+  Sort.cpp)
+
+
+ADD_EXECUTABLE(benchmark ${sources})

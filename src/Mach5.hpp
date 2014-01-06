@@ -1,6 +1,8 @@
 #ifndef MACH5_HPP
 #define MACH5_HPP
 
+#include <iostream>
+
 #include "Benchmark.hpp"
 #include "BenchmarkRunner.hpp"
 
@@ -50,5 +52,9 @@
   _BENCHMARK_CLASS(benchmark_name) \
   _BENCHMARK_FACTORY(benchmark_name, benchmark_runs, benchmark_iterations) \
   _BENCHMARK_CODE(benchmark_name)
+
+#define RUN_ALL_BENCHMARKS(argc, argv) \
+  for (auto result : ::mach5::BenchmarkRunner::instance().runAll()) \
+    std::cout << result.yaml();
 
 #endif
