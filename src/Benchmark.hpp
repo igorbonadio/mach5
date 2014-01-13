@@ -12,12 +12,12 @@ namespace mach5 {
     virtual void setUp() {};
     virtual void tearDown() {};
 
-		double run(int iterations, int segment) {
+		double run(int iterations, int index) {
       double total = 0;
       for (int i = 0; i < iterations; i++) {
         setUp();
         auto t1 = std::chrono::high_resolution_clock::now();
-        code(segment);
+        code(index);
         auto t2 = std::chrono::high_resolution_clock::now();
         tearDown();
         auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);

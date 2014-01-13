@@ -2,6 +2,7 @@
 #define MACH5_HPP
 
 #include <iostream>
+#include <sstream>
 
 #include "Benchmark.hpp"
 #include "BenchmarkRunner.hpp"
@@ -10,7 +11,7 @@
   var_name, start, end
 
 #define SINGLE \
-  segment, 0, 0
+  index, 0, 0
 
 // with fixture
 
@@ -24,7 +25,7 @@
 #define _BENCHMARK_F_CLASS(benchmark_fixture, benchmark_name) \
   class _BENCHMARK_F_NAME(benchmark_fixture, benchmark_name) : public benchmark_fixture { \
   public: \
-    virtual void code(int segment); \
+    virtual void code(int index); \
   };
 
 #define _BENCHMARK_F_FACTORY(benchmark_fixture, benchmark_name, benchmark_runs, benchmark_iterations, start, end) \
@@ -52,7 +53,7 @@
 #define _BENCHMARK_CLASS(benchmark_name) \
   class _BENCHMARK_NAME(benchmark_name) : public ::mach5::Benchmark { \
   public: \
-    virtual void code(int segment); \
+    virtual void code(int index); \
   };
 
 #define _BENCHMARK_FACTORY(benchmark_name, benchmark_runs, benchmark_iterations, start, end) \
@@ -72,7 +73,22 @@
 // main
 
 #define RUN_ALL_BENCHMARKS(argc, argv) \
-  for (auto result : ::mach5::BenchmarkRunner::instance().runAll()) \
-    std::cout << result.yaml();
+  std::ostringstream str; \
+  str << "{"; \
+  auto results = ::mach5::BenchmarkRunner::instance().runAll(); \
+  for (auto kv = results.begin(); kv != results.end(); ++kv) { \
+    str << "\"" << kv->first << "\": ["; \
+    for (auto it = kv->second.begin(); it != kv->second.end(); ++it) { \
+      str << it->json(); \
+      if (std::next(it) != kv->second.end()) \
+        str << ","; \
+    } \
+    str << "]"; \
+    if (std::next(kv) != results.end()) \
+      str << ","; \
+  } \
+  str << "}"; \
+  std::cout << str.str() << std::endl;
+
 
 #endif

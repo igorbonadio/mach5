@@ -8,16 +8,15 @@
 namespace mach5 {
 	class BenchmarkResult {
 	public:
-		BenchmarkResult(std::string benchmark_name, int runs, int iterations, double duration, int segment):
-			_benchmark_name(benchmark_name),_runs(runs),_iterations(iterations),_duration(duration), _segment(segment) {}
+		BenchmarkResult(std::string benchmark_name, int runs, int iterations, double duration, int index):
+			_benchmark_name(benchmark_name),_runs(runs),_iterations(iterations),_duration(duration), _index(index) {}
 
-		std::string yaml() {
+		std::string json() {
 			std::ostringstream output;
-			output << _benchmark_name << ":" << std::endl;
-			output << "\truns: " << _runs << std::endl;
-			output << "\titerations: " << _iterations << std::endl;
-			output << "\tduration: " << _duration << std::endl;
-			output << "\tsegment: " << _segment << std::endl;
+			output << "{\"runs\": " << _runs << ", ";
+			output << "\"iterations\": " << _iterations << ", ";
+			output << "\"duration\": " << _duration << ", ";
+			output << "\"index\": " << _index << "}";
 			return output.str();
 		}
 
@@ -25,7 +24,7 @@ namespace mach5 {
 		std::string _benchmark_name;
 		int _runs;
 		int _iterations;
-		int _segment;
+		int _index;
 		double _duration;
 	};
 }

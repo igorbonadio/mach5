@@ -2,6 +2,7 @@
 #define MACH5_BENCHMARK_RUNNER_HPP
 
 #include <vector>
+#include <map>
 #include <string>
 #include <memory>
 
@@ -20,11 +21,10 @@ namespace mach5 {
 			return benchmarkFactory;
 		}
 
-		std::vector<BenchmarkResult> runAll() {
-			std::vector<BenchmarkResult> results;
+		std::map<std::string, std::vector<BenchmarkResult>> runAll() {
+			std::map<std::string, std::vector<BenchmarkResult>> results;
 			for (auto _descriptor : _descriptors) {
-				std::vector<BenchmarkResult> tmp = run(_descriptor);
-				results.insert(results.end(), tmp.begin(), tmp.end());
+				results[_descriptor->name()] = run(_descriptor);
 			}
 			return results;
 		}
