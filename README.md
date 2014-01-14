@@ -4,7 +4,7 @@ Mach 5 is a minimalist C++11 benchmarking framework.
 
 # Usage
 
-In fact, Mach 5 is just a collection of .hpp and all you need to do is include the Mach5.hpp file.
+In fact, Mach 5 is just a collection of .hpp and all you need to do to use it is include the Mach5.hpp file.
 
 ``` c++
 #include "Mach5.hpp"
@@ -15,9 +15,9 @@ BENCHMARK(DefaultCppSort, 100, 100, SINGLE) {
 }
 ```
 
-Pay attention to the parameter list of BENCHMARK macro. The frist is the name of the benchmark, the second is the number of runs, the third is the number of iterations and the last one is the type.
+Pay attention to the parameter list of BENCHMARK macro. The first is the name of the benchmark, the second is the number of runs, the third is the number of iterations and the last one is the type.
 
-But, the previous benchmark also mensures the creation of the vector num. So, the solution to this problem is create a fixture:
+But, the previous benchmark also measures how much time the creation of the vector num takes. So, the solution to this problem is create a fixture:
 
 ``` c++
 #include "Mach5.hpp"
@@ -39,7 +39,7 @@ But... what is the type parameter?
 Currently we have 2 different types:
 
 - SINGLE: It is a single benchmark
-- FOR(var_name, start, and): It enables you  to test the same peace of code with diferent inputs, for example:
+- FOR(var_name, start, and): It enables you  to test the same piece of code with different inputs, for example:
 
 ``` c++
 class SortingNumberWith : public ::mach5::BenchmarkFixture {
@@ -58,9 +58,9 @@ BENCHMARK_F(SortingNumberWith, DefaultCppSort, 100, 100, FOR(i, 0, 4)) {
 }
 ```
 
-It will mensure the time that std::sort takes to sort each vector of nums.
+It will measure the time that std::sort takes to sort each vector of nums.
 
-For a full example, chack the sample folder.
+For a full example, check the sample folder.
 
 # Copyright
 
