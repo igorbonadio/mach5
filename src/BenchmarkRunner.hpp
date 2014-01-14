@@ -5,10 +5,12 @@
 #include <map>
 #include <string>
 #include <memory>
+#include <iostream>
 
 #include "Benchmark.hpp"
 #include "BenchmarkDescriptor.hpp"
 #include "BenchmarkFactory.hpp"
+#include "Util.hpp"
 
 namespace mach5 {
 	class BenchmarkRunner {
@@ -21,10 +23,27 @@ namespace mach5 {
 			return benchmarkFactory;
 		}
 
-		std::map<std::string, std::vector<BenchmarkResult>> runAll() {
+		std::map<std::string, std::vector<BenchmarkResult>> runAll(int argc, char** argv) {
 			std::map<std::string, std::vector<BenchmarkResult>> results;
-			for (auto _descriptor : _descriptors) {
-				results[_descriptor->name()] = run(_descriptor);
+			std::vector<std::string> _argnames = argnames(argc, argv);
+			switch(Util().inputOptions(argc, argv)){
+				case 1: exit(0);
+				case 2:
+					for (auto _descriptor : _descriptors) {
+						std::cout << _descriptor->name() << std::endl;
+					}
+					break;
+				case 3:
+					for (auto _descriptor : _descriptors) {
+						if (in(_descriptor->name(), _argnames))
+							results[_descriptor->name()] = run(_descriptor);
+					}
+					break;
+				default:
+					for (auto _descriptor : _descriptors) {
+						results[_descriptor->name()] = run(_descriptor);
+					}
+					break;
 			}
 			return results;
 		}
@@ -44,6 +63,21 @@ namespace mach5 {
 				results.push_back(BenchmarkResult(descriptor->name(), descriptor->runs(), descriptor->iterations(), total/descriptor->runs(), i));
 			}
 			return results;
+		}
+
+		std::vector<std::string> argnames(int argc, char** argv) {
+			std::vector<std::string> names;
+			for (int i = 2; i < argc; i++) {
+				names.push_back(std::string(argv[i]));
+			}
+			return names;
+		}
+
+		bool in(std::string name, std::vector<std::string> names) {
+			for (auto n : names) {
+				if (name == n) return true;
+			}
+			return false;
 		}
 
 		std::vector<BenchmarkDescriptorPtr> _descriptors;

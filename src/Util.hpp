@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <iostream>
 
 #include "BenchmarkResult.hpp"
 #include "BenchmarkRunner.hpp"
@@ -27,6 +28,27 @@ namespace mach5 {
       }
       str << "}";
       return str.str();
+    }
+
+    int inputOptions(int argc, char** argv) {
+      if (argc < 2) return 0;
+      auto command = std::string(argv[1]);
+      if (command == "help") {
+        help();
+        return 1;
+      } else if (command == "list") {
+        return 2;
+      } else if (command == "run") {
+        if (argc > 2) return 3;
+      }
+      return 0;
+    }
+
+    void help() {
+      std::cout << "Usage: ./yourbinary [command] [argments*]" << std::endl;
+      std::cout << "  help             show this message" << std::endl;
+      std::cout << "  list             list all benchmarks names" << std::endl;
+      std::cout << "  run              runs a list of benchmarks" << std::endl;
     }
   };
 }

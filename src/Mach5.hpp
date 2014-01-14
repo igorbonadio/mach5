@@ -4,7 +4,6 @@
 #include <iostream>
 #include <sstream>
 
-#include "Util.hpp"
 #include "Benchmark.hpp"
 #include "BenchmarkRunner.hpp"
 
@@ -74,7 +73,7 @@
 // main
 
 #define RUN_ALL_BENCHMARKS(argc, argv) \
-  std::cout << ::mach5::Util().toJson(::mach5::BenchmarkRunner::instance().runAll()) << std::endl;
+  std::cout << ::mach5::Util().toJson(::mach5::BenchmarkRunner::instance().runAll(argc, argv)) << std::endl;
 
 
 #endif
