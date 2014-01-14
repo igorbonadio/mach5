@@ -9,6 +9,9 @@ In fact, Mach 5 is just a collection of .hpp and all you need to do to use it is
 ``` c++
 #include "Mach5.hpp"
 
+#include <vector>
+#include <algorithm>
+
 BENCHMARK(DefaultCppSort, 100, 100, SINGLE) {
   std::vector<int> num = {0, 9, 8, 7, 6, 5, 4, 3, 2, 1};
   std::sort(num.begin(), num.end());
@@ -21,6 +24,9 @@ But, the previous benchmark also measures how much time the creation of the vect
 
 ``` c++
 #include "Mach5.hpp"
+
+#include <vector>
+#include <algorithm>
 
 class SortingNumberWith : public ::mach5::BenchmarkFixture {
 public:
@@ -42,6 +48,11 @@ Currently we have 2 different types:
 - FOR(var_name, start, and): It enables you  to test the same piece of code with different inputs, for example:
 
 ``` c++
+#include "Mach5.hpp"
+
+#include <vector>
+#include <algorithm>
+
 class SortingNumberWith : public ::mach5::BenchmarkFixture {
 public:
   std::vector<std::vector<int>> nums = {
