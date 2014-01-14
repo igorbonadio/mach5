@@ -73,6 +73,35 @@ It will measure the time that std::sort takes to sort each vector of nums.
 
 For a full example, check the sample folder.
 
+# Running
+
+You need a main program to run your benchmarks:
+
+``` c++
+#include "Mach5.hpp"
+
+int main(int argc, char** argv) {
+  RUN_ALL_BENCHMARKS(argc, argv);
+  return 0;
+}
+```
+
+After that, you can compile your program and run it:
+
+```
+$ ./benchmark
+```
+
+It will generate a json that represents the results.
+
+You can pass some parameter to your benchmark program. For exemple:
+
+```
+$ ./benchmark list                 # lists all enabled benchmarks
+$ ./benchmark run DefaultCppSort   # runs a specific benchmark
+$ ./benchmark help                 # shows the help
+```
+
 # Copyright
 
 Copyright © 2014 Ígor Bonadio. See LICENSE.txt for further details.
