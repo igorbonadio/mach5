@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 
+#include "Util.hpp"
 #include "Benchmark.hpp"
 #include "BenchmarkRunner.hpp"
 
@@ -73,22 +74,7 @@
 // main
 
 #define RUN_ALL_BENCHMARKS(argc, argv) \
-  std::ostringstream str; \
-  str << "{"; \
-  auto results = ::mach5::BenchmarkRunner::instance().runAll(); \
-  for (auto kv = results.begin(); kv != results.end(); ++kv) { \
-    str << "\"" << kv->first << "\": ["; \
-    for (auto it = kv->second.begin(); it != kv->second.end(); ++it) { \
-      str << it->json(); \
-      if (std::next(it) != kv->second.end()) \
-        str << ","; \
-    } \
-    str << "]"; \
-    if (std::next(kv) != results.end()) \
-      str << ","; \
-  } \
-  str << "}"; \
-  std::cout << str.str() << std::endl;
+  std::cout << ::mach5::Util().toJson(::mach5::BenchmarkRunner::instance().runAll()) << std::endl;
 
 
 #endif
