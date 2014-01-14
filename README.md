@@ -6,7 +6,7 @@ Mach 5 is a minimalist C++11 benchmarking framework.
 
 In fact, Mach 5 is just a collection of .hpp and all you need to do is include the Mach5.hpp file.
 
-```
+``` c++
 #include "Mach5.hpp"
 
 BENCHMARK(DefaultCppSort, 100, 100, SINGLE) {
@@ -19,7 +19,7 @@ Pay attention to the parameter list of BENCHMARK macro. The frist is the name of
 
 But, the previous benchmark also mensures the creation of the vector num. So, the solution to this problem is create a fixture:
 
-```
+``` c++
 #include "Mach5.hpp"
 
 class SortingNumberWith : public ::mach5::BenchmarkFixture {
@@ -41,7 +41,7 @@ Currently we have 2 different types:
 - SINGLE: It is a single benchmark
 - FOR(var_name, start, and): It enables you  to test the same peace of code with diferent inputs, for example:
 
-```
+``` c++
 class SortingNumberWith : public ::mach5::BenchmarkFixture {
 public:
   std::vector<std::vector<int>> nums = {
