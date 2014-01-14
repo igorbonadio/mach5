@@ -60,3 +60,8 @@ BENCHMARK_F(SortingNumberWith, DefaultCppSort, 100, 100, FOR(i, 0, 4)) {
 
 It will mensure the time that std::sort takes to sort each vector of nums.
 
+For a full example, chack the sample folder.
+
+# Copyright
+
+Copyright © 2014 Ígor Bonadio. See LICENSE.txt for further details.
