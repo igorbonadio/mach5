@@ -28,12 +28,12 @@ But, the previous benchmark also measures how much time the creation of the vect
 #include <vector>
 #include <algorithm>
 
-class SortingNumberWith : public ::mach5::BenchmarkFixture {
+class SortingNumbersWith : public ::mach5::BenchmarkFixture {
 public:
   std::vector<int> num = {0, 9, 8, 7, 6, 5, 4, 3, 2, 1};
 };
 
-BENCHMARK_F(SortingNumberWith, DefaultCppSort, 100, 100, SINGLE) {
+BENCHMARK_F(SortingNumbersWith, DefaultCppSort, 100, 100, SINGLE) {
   std::sort(num.begin(), num.end());
 }
 ```
@@ -53,7 +53,7 @@ Currently we have 2 different types:
 #include <vector>
 #include <algorithm>
 
-class SortingNumberWith : public ::mach5::BenchmarkFixture {
+class SortingNumbersWith : public ::mach5::BenchmarkFixture {
 public:
   std::vector<std::vector<int>> nums = {
     {0, 9, 8, 7, 6, 5},
@@ -64,7 +64,7 @@ public:
   };
 };
 
-BENCHMARK_F(SortingNumberWith, DefaultCppSort, 100, 100, FOR(i, 0, 4)) {
+BENCHMARK_F(SortingNumbersWith, DefaultCppSort, 100, 100, FOR(i, 0, 4)) {
   std::sort(nums[i].begin(), nums[i].end());
 }
 ```
