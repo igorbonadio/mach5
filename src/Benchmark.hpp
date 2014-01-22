@@ -2,6 +2,7 @@
 #define MACH5_BENCHMARK_HPP
 
 #include <memory>
+#include <iostream>
 
 #include "BenchmarkResult.hpp"
 
@@ -17,6 +18,7 @@ namespace mach5 {
       for (int i = 0; i < iterations; i++) {
         setUp();
         auto t1 = std::chrono::high_resolution_clock::now();
+        std::cerr << ".";
         code(index);
         auto t2 = std::chrono::high_resolution_clock::now();
         tearDown();

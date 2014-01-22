@@ -34,12 +34,14 @@ namespace mach5 {
 					}
 					break;
 				case 3:
+					std::cerr << "Running..." << std::endl;
 					for (auto _descriptor : _descriptors) {
 						if (in(_descriptor->name(), _argnames))
 							results[_descriptor->name()] = run(_descriptor);
 					}
 					break;
 				default:
+					std::cerr << "Running..." << std::endl;
 					for (auto _descriptor : _descriptors) {
 						results[_descriptor->name()] = run(_descriptor);
 					}
@@ -54,14 +56,19 @@ namespace mach5 {
 		}
 	private:
 		std::vector<BenchmarkResult> run(BenchmarkDescriptorPtr descriptor) {
+			std::cerr << "- " << descriptor->name() << std::endl;
 			std::vector<BenchmarkResult> results;
 			for (int index = descriptor->start(); index <= descriptor->end(); index++) {
+				std::cerr << "[index = " << index << "]";
 				double total = 0;
 				for (int i = 0; i < descriptor->runs(); i++) {
 					total += descriptor->benchmarkFactory()->build()->run(descriptor->iterations(), index);
+					std::cerr << "|";
 				}
+				std::cerr << std::endl;
 				results.push_back(BenchmarkResult(descriptor->name(), descriptor->runs(), descriptor->iterations(), total/descriptor->runs(), index));
 			}
+			std::cerr << std::endl;
 			return results;
 		}
 
