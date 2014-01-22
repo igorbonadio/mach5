@@ -55,12 +55,12 @@ namespace mach5 {
 	private:
 		std::vector<BenchmarkResult> run(BenchmarkDescriptorPtr descriptor) {
 			std::vector<BenchmarkResult> results;
-			for (int i = descriptor->start(); i <= descriptor->end(); i++) {
+			for (int index = descriptor->start(); index <= descriptor->end(); index++) {
 				double total = 0;
 				for (int i = 0; i < descriptor->runs(); i++) {
-					total += descriptor->benchmarkFactory()->build()->run(descriptor->iterations(), i);
+					total += descriptor->benchmarkFactory()->build()->run(descriptor->iterations(), index);
 				}
-				results.push_back(BenchmarkResult(descriptor->name(), descriptor->runs(), descriptor->iterations(), total/descriptor->runs(), i));
+				results.push_back(BenchmarkResult(descriptor->name(), descriptor->runs(), descriptor->iterations(), total/descriptor->runs(), index));
 			}
 			return results;
 		}
