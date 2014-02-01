@@ -34,17 +34,19 @@ namespace mach5 {
 					}
 					break;
 				case 3:
-					std::cerr << "Running..." << std::endl;
+					std::cerr << "[==========] Running " << _argnames.size() << " benchmarks" << std::endl << std::endl;
 					for (auto _descriptor : _descriptors) {
 						if (in(_descriptor->name(), _argnames))
 							results[_descriptor->name()] = run(_descriptor);
 					}
+					std::cerr << "[==========] " << _argnames.size() << " benchmarks ran (TODO ms)" << std::endl;
 					break;
 				default:
-					std::cerr << "Running..." << std::endl;
+					std::cerr << "[==========] Running " << _descriptors.size() << " benchmarks" << std::endl << std::endl;
 					for (auto _descriptor : _descriptors) {
 						results[_descriptor->name()] = run(_descriptor);
 					}
+					std::cerr << "[==========] " << _descriptors.size() << " benchmarks ran (TODO ms)" << std::endl;
 					break;
 			}
 			return results;
@@ -56,18 +58,26 @@ namespace mach5 {
 		}
 	private:
 		std::vector<BenchmarkResult> run(BenchmarkDescriptorPtr descriptor) {
-			std::cerr << "- " << descriptor->name() << std::endl;
+			std::cerr << "[----------] For i = " << descriptor->start() << "..." << descriptor->end() << std::endl;
 			std::vector<BenchmarkResult> results;
 			for (int index = descriptor->start(); index <= descriptor->end(); index++) {
-				std::cerr << "[index = " << index << "]";
+				std::cerr << "[ RUN      ] " << descriptor->name() << "[" << index << "]" << std::endl;
+				std::cerr << "[ PROGRESS ] ";
 				double total = 0;
 				for (int i = 0; i < descriptor->runs(); i++) {
 					total += descriptor->benchmarkFactory()->build()->run(descriptor->iterations(), index);
-					std::cerr << "|";
 				}
 				std::cerr << std::endl;
+				std::cerr << "[     DONE ] " << descriptor->name() << "[" << index << "]" << " (TODO ms)" << std::endl;
 				results.push_back(BenchmarkResult(descriptor->name(), descriptor->runs(), descriptor->iterations(), total/descriptor->runs(), index));
+				std::cerr << "[ RUNS     ] Average time: TODO ms" << std::endl;
+				std::cerr << "                  Fastest: TODO ms" << std::endl;
+				std::cerr << "                  Slowest: TODO ms" << std::endl;
+				std::cerr << "[ITERATIONS] Average time: TODO ms" << std::endl;
+				std::cerr << "                  Fastest: TODO ms" << std::endl;
+				std::cerr << "                  Slowest: TODO ms" << std::endl;
 			}
+			std::cerr << "[----------] End (TODO ms)" << std::endl;
 			std::cerr << std::endl;
 			return results;
 		}
