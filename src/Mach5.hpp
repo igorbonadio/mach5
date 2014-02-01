@@ -28,14 +28,14 @@
     virtual void code(int index); \
   };
 
-#define _BENCHMARK_F_FACTORY(benchmark_fixture, benchmark_name, benchmark_runs, benchmark_iterations, start, end) \
-  const auto _BENCHMARK_F_FACTORY_NAME(benchmark_fixture, benchmark_name) = ::mach5::BenchmarkRunner::instance().addBenchmark<_BENCHMARK_F_NAME(benchmark_fixture, benchmark_name)>(#benchmark_fixture#benchmark_name, benchmark_runs, benchmark_iterations, start, end);
+#define _BENCHMARK_F_FACTORY(benchmark_fixture, benchmark_name, separator, benchmark_runs, benchmark_iterations, start, end) \
+  const auto _BENCHMARK_F_FACTORY_NAME(benchmark_fixture, benchmark_name) = ::mach5::BenchmarkRunner::instance().addBenchmark<_BENCHMARK_F_NAME(benchmark_fixture, benchmark_name)>(#benchmark_fixture#separator#benchmark_name, benchmark_runs, benchmark_iterations, start, end);
 
 #define _BENCHMARK_F_CODE(benchmark_fixture, benchmark_name, var_name) \
   void _BENCHMARK_F_NAME(benchmark_fixture, benchmark_name)::code(int var_name)
 
 #define _BENCHMARK_F_FACTORY_AND_CODE(var_name, start, end, benchmark_fixture, benchmark_name, benchmark_runs, benchmark_iterations) \
-  _BENCHMARK_F_FACTORY(benchmark_fixture, benchmark_name, benchmark_runs, benchmark_iterations, start, end) \
+  _BENCHMARK_F_FACTORY(benchmark_fixture, benchmark_name, ., benchmark_runs, benchmark_iterations, start, end) \
   _BENCHMARK_F_CODE(benchmark_fixture, benchmark_name, var_name)
 
 #define BENCHMARK_F(benchmark_fixture, benchmark_name, benchmark_runs, benchmark_iterations, type) \

@@ -23,7 +23,7 @@ public:
   	std::sort(num.begin(), num.end());
   }
 };
-const auto FactoryFixture1Single = ::mach5::BenchmarkRunner::instance().addBenchmark<Fixture1Single>("Fixture1Single", 10, 2, 0, 0);
+const auto FactoryFixture1Single = ::mach5::BenchmarkRunner::instance().addBenchmark<Fixture1Single>("Fixture1.Single", 10, 2, 0, 0);
 
 class Fixture2For : public Fixture2 {
 public:
@@ -31,7 +31,7 @@ public:
   	std::sort(num[index].begin(), num[index].end());
   }
 };
-const auto FactoryFixture2For = ::mach5::BenchmarkRunner::instance().addBenchmark<Fixture2For>("Fixture2For", 10, 2, 0, 2);
+const auto FactoryFixture2For = ::mach5::BenchmarkRunner::instance().addBenchmark<Fixture2For>("Fixture2.For", 10, 2, 0, 2);
 
 class Single : public ::mach5::Benchmark {
 public:
