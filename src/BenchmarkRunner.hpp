@@ -39,14 +39,14 @@ namespace mach5 {
 						if (in(_descriptor->name(), _argnames))
 							results[_descriptor->name()] = run(_descriptor);
 					}
-					std::cerr << "[==========] " << _argnames.size() << " benchmarks ran (TODO s)" << std::endl;
+					std::cerr << "[==========] " << _argnames.size() << " benchmarks ran" << std::endl;
 					break;
 				default:
 					std::cerr << "[==========] Running " << _descriptors.size() << " benchmarks" << std::endl << std::endl;
 					for (auto _descriptor : _descriptors) {
 						results[_descriptor->name()] = run(_descriptor);
 					}
-					std::cerr << "[==========] " << _descriptors.size() << " benchmarks ran (TODO s)" << std::endl;
+					std::cerr << "[==========] " << _descriptors.size() << " benchmarks ran" << std::endl;
 					break;
 			}
 			return results;
