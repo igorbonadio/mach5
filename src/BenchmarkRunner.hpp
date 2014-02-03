@@ -65,7 +65,6 @@ namespace mach5 {
 				std::cerr << "[ RUN      ] " << descriptor->name() << "[" << index << "]" << std::endl;
 				std::cerr << "[ PROGRESS ] ";
 
-				double total = 0;
 				std::vector<std::vector<double>> run_times;
 				for (int i = 0; i < descriptor->runs(); i++) {
 					run_times.push_back(descriptor->benchmarkFactory()->build()->run(descriptor->iterations(), index));
@@ -81,7 +80,17 @@ namespace mach5 {
 				double iterations_fastest = iterationsFastest(run_times);
 				double iterations_slowest = iterationsSlowest(run_times);
 
-				results.push_back(BenchmarkResult(descriptor->name(), descriptor->runs(), descriptor->iterations(), total/descriptor->runs(), index));
+				results.push_back(BenchmarkResult(descriptor->name(),
+					                                descriptor->runs(),
+					                                descriptor->iterations(),
+					                                index,
+					                                total_time,
+					                                runs_average_time,
+					                                runs_fastest,
+					                                runs_slowest,
+					                                iterations_average_time,
+					                                iterations_fastest,
+					                                iterations_slowest));
 
 				std::cerr << std::endl;
 				std::cerr << "[     DONE ] " << descriptor->name() << "[" << index << "]" << " (" << total_time << " s)" << std::endl;
