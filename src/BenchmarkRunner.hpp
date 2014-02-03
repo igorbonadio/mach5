@@ -60,6 +60,7 @@ namespace mach5 {
 		std::vector<BenchmarkResult> run(BenchmarkDescriptorPtr descriptor) {
 			std::cerr << "[----------] For i = " << descriptor->start() << "..." << descriptor->end() << std::endl;
 			std::vector<BenchmarkResult> results;
+			double final_time = 0;
 			for (int index = descriptor->start(); index <= descriptor->end(); index++) {
 				std::cerr << "[ RUN      ] " << descriptor->name() << "[" << index << "]" << std::endl;
 				std::cerr << "[ PROGRESS ] ";
@@ -69,16 +70,18 @@ namespace mach5 {
 					run_times.push_back(descriptor->benchmarkFactory()->build()->run(descriptor->iterations(), index));
 				}
 				std::cerr << std::endl;
-				std::cerr << "[     DONE ] " << descriptor->name() << "[" << index << "]" << " (TODO s)" << std::endl;
+				double total_time = runsTotalTime(run_times);
+				final_time += total_time;
+				std::cerr << "[     DONE ] " << descriptor->name() << "[" << index << "]" << " (" << total_time << " s)" << std::endl;
 				results.push_back(BenchmarkResult(descriptor->name(), descriptor->runs(), descriptor->iterations(), total/descriptor->runs(), index));
 				std::cerr << "[ RUNS     ] Average time: " << runsAverageTime(run_times) << " s" << std::endl;
 				std::cerr << "                  Fastest: " << runsFastest(run_times) << " s" << std::endl;
 				std::cerr << "                  Slowest: " << runsSlowest(run_times) << " s" << std::endl;
 				std::cerr << "[ITERATIONS] Average time: " << iterationsAverageTime(run_times) << " s" << std::endl;
 				std::cerr << "                  Fastest: " << iterationsFastest(run_times) << " s" << std::endl;
-				std::cerr << "                  Slowest: TODO s" << std::endl;
+				std::cerr << "                  Slowest: " << iterationsSlowest(run_times) << " s" << std::endl;
 			}
-			std::cerr << "[----------] End (TODO s)" << std::endl;
+			std::cerr << "[----------] End (" << final_time << " s)" << std::endl;
 			std::cerr << std::endl;
 			return results;
 		}
@@ -106,12 +109,27 @@ namespace mach5 {
 			return max;
 		}
 
-		double runsAverageTime(std::vector<std::vector<double>> results) {
+		double iterationsSlowest(std::vector<std::vector<double>> results) {
+			double min = results[0][0];
+			for (auto run : results) {
+				for (auto iteration: run) {
+					if (min > iteration)
+						min = iteration;
+				}
+			}
+			return min;
+		}
+
+		double runsTotalTime(std::vector<std::vector<double>> results) {
 			double total = 0;
 			for (auto run : results) {
 				total += runTotalTime(run);
 			}
-			return total/results.size();
+			return total;
+		}
+
+		double runsAverageTime(std::vector<std::vector<double>> results) {
+			return runsTotalTime(results)/results.size();
 		}
 
 		double runsFastest(std::vector<std::vector<double>> results) {
