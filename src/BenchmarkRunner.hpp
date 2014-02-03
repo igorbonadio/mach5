@@ -74,13 +74,36 @@ namespace mach5 {
 				std::cerr << "[ RUNS     ] Average time: " << runsAverageTime(run_times) << " s" << std::endl;
 				std::cerr << "                  Fastest: " << runsFastest(run_times) << " s" << std::endl;
 				std::cerr << "                  Slowest: " << runsSlowest(run_times) << " s" << std::endl;
-				std::cerr << "[ITERATIONS] Average time: TODO s" << std::endl;
-				std::cerr << "                  Fastest: TODO s" << std::endl;
+				std::cerr << "[ITERATIONS] Average time: " << iterationsAverageTime(run_times) << " s" << std::endl;
+				std::cerr << "                  Fastest: " << iterationsFastest(run_times) << " s" << std::endl;
 				std::cerr << "                  Slowest: TODO s" << std::endl;
 			}
 			std::cerr << "[----------] End (TODO s)" << std::endl;
 			std::cerr << std::endl;
 			return results;
+		}
+
+		double iterationsAverageTime(std::vector<std::vector<double>> results) {
+			double total = 0;
+			int num = 0;
+			for (auto run : results) {
+				for (auto iteration: run) {
+					total += iteration;
+					num++;
+				}
+			}
+			return total/num;
+		}
+
+		double iterationsFastest(std::vector<std::vector<double>> results) {
+			double max = 0;
+			for (auto run : results) {
+				for (auto iteration: run) {
+					if (max < iteration)
+						max = iteration;
+				}
+			}
+			return max;
 		}
 
 		double runsAverageTime(std::vector<std::vector<double>> results) {
@@ -102,13 +125,13 @@ namespace mach5 {
 		}
 
 		double runsSlowest(std::vector<std::vector<double>> results) {
-			double max = runTotalTime(results[0]);
+			double min = runTotalTime(results[0]);
 			for (auto run : results) {
 				auto current = runTotalTime(run);
-				if (max > current)
-					max = current;
+				if (min > current)
+					min = current;
 			}
-			return max;
+			return min;
 		}
 
 		double runTotalTime(std::vector<double> run) {
