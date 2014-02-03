@@ -24,7 +24,7 @@ namespace mach5 {
         code(index);
         auto t2 = std::chrono::high_resolution_clock::now();
         tearDown();
-        auto time_span = std::chrono::duration_cast<std::chrono::seconds>(t2 - t1);
+        auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
         iteration_times.push_back(time_span.count());
       }
       return(iteration_times);
