@@ -97,9 +97,9 @@ It will generate a json that represents the results.
 You can pass some parameter to your benchmark program. For example:
 
 ```
-$ ./benchmark list                 # lists all enabled benchmarks
-$ ./benchmark run DefaultCppSort   # runs a specific benchmark
-$ ./benchmark help                 # shows the help
+$ ./benchmark list                                    # lists all enabled benchmarks
+$ ./benchmark run SortingNumbersWith.DefaultCppSort   # runs a specific benchmark
+$ ./benchmark help                                    # shows the help
 ```
 
 # Copyright
