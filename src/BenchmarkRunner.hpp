@@ -39,14 +39,14 @@ namespace mach5 {
 						if (in(_descriptor->name(), _argnames))
 							results[_descriptor->name()] = run(_descriptor);
 					}
-					std::cerr << "[==========] " << _argnames.size() << " benchmarks ran (TODO ms)" << std::endl;
+					std::cerr << "[==========] " << _argnames.size() << " benchmarks ran (TODO s)" << std::endl;
 					break;
 				default:
 					std::cerr << "[==========] Running " << _descriptors.size() << " benchmarks" << std::endl << std::endl;
 					for (auto _descriptor : _descriptors) {
 						results[_descriptor->name()] = run(_descriptor);
 					}
-					std::cerr << "[==========] " << _descriptors.size() << " benchmarks ran (TODO ms)" << std::endl;
+					std::cerr << "[==========] " << _descriptors.size() << " benchmarks ran (TODO s)" << std::endl;
 					break;
 			}
 			return results;
@@ -64,22 +64,39 @@ namespace mach5 {
 				std::cerr << "[ RUN      ] " << descriptor->name() << "[" << index << "]" << std::endl;
 				std::cerr << "[ PROGRESS ] ";
 				double total = 0;
+				std::vector<std::vector<double>> run_times;
 				for (int i = 0; i < descriptor->runs(); i++) {
-					total += descriptor->benchmarkFactory()->build()->run(descriptor->iterations(), index);
+					run_times.push_back(descriptor->benchmarkFactory()->build()->run(descriptor->iterations(), index));
 				}
 				std::cerr << std::endl;
-				std::cerr << "[     DONE ] " << descriptor->name() << "[" << index << "]" << " (TODO ms)" << std::endl;
+				std::cerr << "[     DONE ] " << descriptor->name() << "[" << index << "]" << " (TODO s)" << std::endl;
 				results.push_back(BenchmarkResult(descriptor->name(), descriptor->runs(), descriptor->iterations(), total/descriptor->runs(), index));
-				std::cerr << "[ RUNS     ] Average time: TODO ms" << std::endl;
-				std::cerr << "                  Fastest: TODO ms" << std::endl;
-				std::cerr << "                  Slowest: TODO ms" << std::endl;
-				std::cerr << "[ITERATIONS] Average time: TODO ms" << std::endl;
-				std::cerr << "                  Fastest: TODO ms" << std::endl;
-				std::cerr << "                  Slowest: TODO ms" << std::endl;
+				std::cerr << "[ RUNS     ] Average time: " << runsAverageTime(run_times) << " s" << std::endl;
+				std::cerr << "                  Fastest: TODO s" << std::endl;
+				std::cerr << "                  Slowest: TODO s" << std::endl;
+				std::cerr << "[ITERATIONS] Average time: TODO s" << std::endl;
+				std::cerr << "                  Fastest: TODO s" << std::endl;
+				std::cerr << "                  Slowest: TODO s" << std::endl;
 			}
-			std::cerr << "[----------] End (TODO ms)" << std::endl;
+			std::cerr << "[----------] End (TODO s)" << std::endl;
 			std::cerr << std::endl;
 			return results;
+		}
+
+		double runsAverageTime(std::vector<std::vector<double>> results) {
+			double total = 0;
+			for (auto run : results) {
+				total += runTotalTime(run);
+			}
+			return total/results.size();
+		}
+
+		double runTotalTime(std::vector<double> run) {
+			double total;
+			for(auto iteration : run) {
+				total += iteration;
+			}
+			return total;
 		}
 
 		std::vector<std::string> argnames(int argc, char** argv) {

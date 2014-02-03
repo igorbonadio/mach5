@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <iostream>
+#include <vector>
 
 #include "BenchmarkResult.hpp"
 
@@ -13,8 +14,9 @@ namespace mach5 {
     virtual void setUp() {};
     virtual void tearDown() {};
 
-		double run(int iterations, int index) {
+		std::vector<double> run(int iterations, int index) {
       double total = 0;
+      std::vector<double> iteration_times;
       for (int i = 0; i < iterations; i++) {
         setUp();
         auto t1 = std::chrono::high_resolution_clock::now();
@@ -22,10 +24,10 @@ namespace mach5 {
         code(index);
         auto t2 = std::chrono::high_resolution_clock::now();
         tearDown();
-        auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
-        total += time_span.count();
+        auto time_span = std::chrono::duration_cast<std::chrono::seconds>(t2 - t1);
+        iteration_times.push_back(time_span.count());
       }
-      return(total/iterations);
+      return(iteration_times);
     }
 	};
 
