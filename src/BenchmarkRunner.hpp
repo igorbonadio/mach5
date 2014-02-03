@@ -64,22 +64,33 @@ namespace mach5 {
 			for (int index = descriptor->start(); index <= descriptor->end(); index++) {
 				std::cerr << "[ RUN      ] " << descriptor->name() << "[" << index << "]" << std::endl;
 				std::cerr << "[ PROGRESS ] ";
+
 				double total = 0;
 				std::vector<std::vector<double>> run_times;
 				for (int i = 0; i < descriptor->runs(); i++) {
 					run_times.push_back(descriptor->benchmarkFactory()->build()->run(descriptor->iterations(), index));
 				}
-				std::cerr << std::endl;
+
+
 				double total_time = runsTotalTime(run_times);
 				final_time += total_time;
-				std::cerr << "[     DONE ] " << descriptor->name() << "[" << index << "]" << " (" << total_time << " s)" << std::endl;
+				double runs_average_time = runsAverageTime(run_times);
+				double runs_fastest = runsFastest(run_times);
+				double runs_slowest = runsSlowest(run_times);
+				double iterations_average_time = iterationsAverageTime(run_times);
+				double iterations_fastest = iterationsFastest(run_times);
+				double iterations_slowest = iterationsSlowest(run_times);
+
 				results.push_back(BenchmarkResult(descriptor->name(), descriptor->runs(), descriptor->iterations(), total/descriptor->runs(), index));
-				std::cerr << "[ RUNS     ] Average time: " << runsAverageTime(run_times) << " s" << std::endl;
-				std::cerr << "                  Fastest: " << runsFastest(run_times) << " s" << std::endl;
-				std::cerr << "                  Slowest: " << runsSlowest(run_times) << " s" << std::endl;
-				std::cerr << "[ITERATIONS] Average time: " << iterationsAverageTime(run_times) << " s" << std::endl;
-				std::cerr << "                  Fastest: " << iterationsFastest(run_times) << " s" << std::endl;
-				std::cerr << "                  Slowest: " << iterationsSlowest(run_times) << " s" << std::endl;
+
+				std::cerr << std::endl;
+				std::cerr << "[     DONE ] " << descriptor->name() << "[" << index << "]" << " (" << total_time << " s)" << std::endl;
+				std::cerr << "[ RUNS     ] Average time: " << runs_average_time << " s" << std::endl;
+				std::cerr << "                  Fastest: " << runs_fastest << " s" << std::endl;
+				std::cerr << "                  Slowest: " << runs_slowest << " s" << std::endl;
+				std::cerr << "[ITERATIONS] Average time: " << iterations_average_time << " s" << std::endl;
+				std::cerr << "                  Fastest: " << iterations_fastest << " s" << std::endl;
+				std::cerr << "                  Slowest: " << iterations_slowest << " s" << std::endl;
 			}
 			std::cerr << "[----------] End (" << final_time << " s)" << std::endl;
 			std::cerr << std::endl;
