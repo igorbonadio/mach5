@@ -46,8 +46,8 @@ namespace mach5 {
 
     void help() {
       std::cout << "Usage: ./yourbinary [command] [argments*]" << std::endl;
-      std::cout << "  help             show this message" << std::endl;
-      std::cout << "  list             list all benchmarks names" << std::endl;
+      std::cout << "  help             shows this message" << std::endl;
+      std::cout << "  list             lists all benchmarks names" << std::endl;
       std::cout << "  run              runs a list of benchmarks" << std::endl;
     }
   };
