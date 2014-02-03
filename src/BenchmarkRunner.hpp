@@ -73,7 +73,7 @@ namespace mach5 {
 				results.push_back(BenchmarkResult(descriptor->name(), descriptor->runs(), descriptor->iterations(), total/descriptor->runs(), index));
 				std::cerr << "[ RUNS     ] Average time: " << runsAverageTime(run_times) << " s" << std::endl;
 				std::cerr << "                  Fastest: " << runsFastest(run_times) << " s" << std::endl;
-				std::cerr << "                  Slowest: TODO s" << std::endl;
+				std::cerr << "                  Slowest: " << runsSlowest(run_times) << " s" << std::endl;
 				std::cerr << "[ITERATIONS] Average time: TODO s" << std::endl;
 				std::cerr << "                  Fastest: TODO s" << std::endl;
 				std::cerr << "                  Slowest: TODO s" << std::endl;
@@ -96,6 +96,16 @@ namespace mach5 {
 			for (auto run : results) {
 				auto current = runTotalTime(run);
 				if (max < current)
+					max = current;
+			}
+			return max;
+		}
+
+		double runsSlowest(std::vector<std::vector<double>> results) {
+			double max = runTotalTime(results[0]);
+			for (auto run : results) {
+				auto current = runTotalTime(run);
+				if (max > current)
 					max = current;
 			}
 			return max;
