@@ -27,7 +27,12 @@ namespace mach5 {
 		std::map<std::string, std::vector<BenchmarkResult>> runAll(int argc, char** argv) {
 			std::map<std::string, std::vector<BenchmarkResult>> results;
 			std::vector<std::string> _argnames = argnames(argc, argv);
-			switch(Util().inputOptions(argc, argv)){
+			InputParameters params = Util().inputOptions(argc, argv);
+
+			if (!params.options["collor"])
+				RED = GREEN = YELLOW = DEFAULT = "";
+
+			switch(params.command){
 				case 1: exit(0);
 				case 2:
 					for (auto _descriptor : _descriptors) {

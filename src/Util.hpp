@@ -10,6 +10,15 @@
 #include "BenchmarkRunner.hpp"
 
 namespace mach5 {
+  class InputParameters {
+  public:
+    InputParameters(int _command, std::vector<std::string> _benchmarks, std::map<std::string, bool> _options):
+      command(_command), benchmarks(_benchmarks), options(_options) {}
+    int command;
+    std::vector<std::string> benchmarks;
+    std::map<std::string, bool> options;
+  };
+
   class Util {
   public:
     std::string toJson(std::map<std::string, std::vector<BenchmarkResult>> results) {
@@ -30,22 +39,41 @@ namespace mach5 {
       return str.str();
     }
 
-    int inputOptions(int argc, char** argv) {
-      if (argc < 2) return 0;
-      auto command = std::string(argv[1]);
-      if (command == "help") {
-        help();
-        return 1;
-      } else if (command == "list") {
-        return 2;
-      } else if (command == "run") {
-        if (argc > 2) return 3;
+    InputParameters inputOptions(int argc, char** argv) {
+      std::map<std::string, bool> options;
+      options["collor"] = false;
+      options["json"]   = false;
+      int command = 0;
+      std::vector<std::string> benchmarks;
+
+      for (int i = 1; i < argc; i++) {
+        auto option = std::string(argv[i]);
+        if (option == "-c" || option == "--collor") {
+          options["collor"] = true;
+        } else if (option == "-j" || option == "--json") {
+          options["json"] = true;
+        } if (option == "run") {
+          command = 3;
+          i++;
+          for (; i < argc; i++) {
+            benchmarks.push_back(std::string(argv[i]));
+          }
+        } else if (option == "list") {
+          command = 2;
+        } else if (option == "help") {
+          command = 1;
+        }
       }
-      return 0;
+
+      return InputParameters(command, benchmarks, options);
     }
 
     void help() {
-      std::cout << "Usage: ./yourbinary [command] [argments*]" << std::endl;
+      std::cout << "Usage: ./yourbinary [options] [command] [argments*]" << std::endl;
+      std::cout << "options:" << std::endl;
+      std::cout << "  -c, --collor     Shows messages with collors" << std::endl;
+      std::cout << "  -j, --json       Outputs a json" << std::endl;
+      std::cout << "commands:" << std::endl;
       std::cout << "  help             shows this message" << std::endl;
       std::cout << "  list             lists all benchmarks names" << std::endl;
       std::cout << "  run              runs a list of benchmarks" << std::endl;

@@ -73,7 +73,11 @@
 // main
 
 #define RUN_ALL_BENCHMARKS(argc, argv) \
-  std::cout << ::mach5::Util().toJson(::mach5::BenchmarkRunner::instance().runAll(argc, argv)) << std::endl;
+  auto params = ::mach5::Util().inputOptions(argc, argv); \
+  auto result = ::mach5::BenchmarkRunner::instance().runAll(argc, argv); \
+  if (params.options["json"]) \
+    std::cout << ::mach5::Util().toJson(result) << std::endl;
+
 
 
 #endif
