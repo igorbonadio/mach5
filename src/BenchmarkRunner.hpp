@@ -6,6 +6,7 @@
 #include <string>
 #include <memory>
 #include <iostream>
+#include <stdlib.h>
 
 #include "Benchmark.hpp"
 #include "BenchmarkDescriptor.hpp"
@@ -34,19 +35,19 @@ namespace mach5 {
 					}
 					break;
 				case 3:
-					std::cerr << "[==========] Running " << _argnames.size() << " benchmarks" << std::endl << std::endl;
+					std::cerr << GREEN << "[==========] " << DEFAULT << "Running " << _argnames.size() << " benchmarks" << std::endl << std::endl;
 					for (auto _descriptor : _descriptors) {
 						if (in(_descriptor->name(), _argnames))
 							results[_descriptor->name()] = run(_descriptor);
 					}
-					std::cerr << "[==========] " << _argnames.size() << " benchmarks ran" << std::endl;
+					std::cerr << GREEN << "[==========] " << DEFAULT << _argnames.size() << " benchmarks ran" << std::endl;
 					break;
 				default:
-					std::cerr << "[==========] Running " << _descriptors.size() << " benchmarks" << std::endl << std::endl;
+					std::cerr << GREEN << "[==========] " << DEFAULT << "Running " << _descriptors.size() << " benchmarks" << std::endl << std::endl;
 					for (auto _descriptor : _descriptors) {
 						results[_descriptor->name()] = run(_descriptor);
 					}
-					std::cerr << "[==========] " << _descriptors.size() << " benchmarks ran" << std::endl;
+					std::cerr << GREEN << "[==========] " << DEFAULT << _descriptors.size() << " benchmarks ran" << std::endl;
 					break;
 			}
 			return results;
@@ -57,13 +58,19 @@ namespace mach5 {
 			return singleton;
 		}
 	private:
+
+		std::string RED = "\x1b[31m";
+		std::string GREEN = "\x1b[32m";
+		std::string YELLOW = "\x1b[33m";
+		std::string DEFAULT = "\x1b[0m";
+
 		std::vector<BenchmarkResult> run(BenchmarkDescriptorPtr descriptor) {
-			std::cerr << "[----------] For i = " << descriptor->start() << "..." << descriptor->end() << std::endl;
+			std::cerr << GREEN << "[----------] " << DEFAULT << "For i = " << descriptor->start() << "..." << descriptor->end() << std::endl;
 			std::vector<BenchmarkResult> results;
 			double final_time = 0;
 			for (int index = descriptor->start(); index <= descriptor->end(); index++) {
-				std::cerr << "[ RUN      ] " << descriptor->name() << "[" << index << "]" << std::endl;
-				std::cerr << "[ PROGRESS ] ";
+				std::cerr << GREEN << "[ RUN      ] " << DEFAULT << descriptor->name() << "[" << index << "]" << std::endl;
+				std::cerr << GREEN << "[ PROGRESS ] " << YELLOW;
 
 				std::vector<std::vector<double>> run_times;
 				for (int i = 0; i < descriptor->runs(); i++) {
@@ -93,15 +100,15 @@ namespace mach5 {
 					                                iterations_slowest));
 
 				std::cerr << std::endl;
-				std::cerr << "[     DONE ] " << descriptor->name() << "[" << index << "]" << " (" << total_time << " s)" << std::endl;
-				std::cerr << "[ RUNS     ] Average time: " << runs_average_time << " s" << std::endl;
-				std::cerr << "                  Fastest: " << runs_fastest << " s" << std::endl;
-				std::cerr << "                  Slowest: " << runs_slowest << " s" << std::endl;
-				std::cerr << "[ITERATIONS] Average time: " << iterations_average_time << " s" << std::endl;
-				std::cerr << "                  Fastest: " << iterations_fastest << " s" << std::endl;
-				std::cerr << "                  Slowest: " << iterations_slowest << " s" << std::endl;
+				std::cerr << GREEN << "[     DONE ] " << DEFAULT << descriptor->name() << "[" << index << "]" << " (" << total_time << " s)" << std::endl;
+				std::cerr << GREEN << "[ RUNS     ] " << DEFAULT << "Average time: " << runs_average_time << " s" << std::endl;
+				std::cerr << DEFAULT << "                  Fastest: " << runs_fastest << " s" << std::endl;
+				std::cerr << DEFAULT << "                  Slowest: " << runs_slowest << " s" << std::endl;
+				std::cerr << GREEN << "[ITERATIONS] " << DEFAULT << "Average time: " << iterations_average_time << " s" << std::endl;
+				std::cerr << DEFAULT << "                  Fastest: " << iterations_fastest << " s" << std::endl;
+				std::cerr << DEFAULT << "                  Slowest: " << iterations_slowest << " s" << std::endl;
 			}
-			std::cerr << "[----------] End (" << final_time << " s)" << std::endl;
+			std::cerr << GREEN << "[----------] " << DEFAULT << "End (" << final_time << " s)" << std::endl;
 			std::cerr << std::endl;
 			return results;
 		}
