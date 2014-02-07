@@ -29,7 +29,7 @@ namespace mach5 {
 			std::vector<std::string> _argnames = argnames(argc, argv);
 			InputParameters params = Util().inputOptions(argc, argv);
 
-			if (!params.options["collor"])
+			if (!params.options["color"])
 				RED = GREEN = YELLOW = DEFAULT = "";
 
 			switch(params.command){

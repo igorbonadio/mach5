@@ -41,15 +41,15 @@ namespace mach5 {
 
     InputParameters inputOptions(int argc, char** argv) {
       std::map<std::string, bool> options;
-      options["collor"] = false;
+      options["color"] = false;
       options["json"]   = false;
       int command = 0;
       std::vector<std::string> benchmarks;
 
       for (int i = 1; i < argc; i++) {
         auto option = std::string(argv[i]);
-        if (option == "-c" || option == "--collor") {
-          options["collor"] = true;
+        if (option == "-c" || option == "--color") {
+          options["color"] = true;
         } else if (option == "-j" || option == "--json") {
           options["json"] = true;
         } if (option == "run") {
@@ -71,7 +71,7 @@ namespace mach5 {
     void help() {
       std::cout << "Usage: ./yourbinary [options] [command] [argments*]" << std::endl;
       std::cout << "options:" << std::endl;
-      std::cout << "  -c, --collor     Shows messages with collors" << std::endl;
+      std::cout << "  -c, --color     Shows messages with colors" << std::endl;
       std::cout << "  -j, --json       Outputs a json" << std::endl;
       std::cout << "commands:" << std::endl;
       std::cout << "  help             shows this message" << std::endl;
