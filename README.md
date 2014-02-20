@@ -1,10 +1,10 @@
-# Mach 5
+# Mach5
 
-Mach 5 is a minimalist C++11 benchmarking framework.
+Mach5 is a minimalist C++11 benchmarking framework.
 
 # Usage
 
-In fact, Mach 5 is just a collection of .hpp and all you need to do to use it is include the Mach5.hpp file.
+In fact, Mach5 is just a collection of .hpp and all you need to do to use it is include the Mach5.hpp file.
 
 ``` c++
 #include "Mach5.hpp"
