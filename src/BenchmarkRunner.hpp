@@ -130,7 +130,7 @@ namespace mach5 {
 			return total/num;
 		}
 
-		double iterationsFastest(std::vector<std::vector<double>> results) {
+		double iterationsSlowest(std::vector<std::vector<double>> results) {
 			double max = 0;
 			for (auto run : results) {
 				for (auto iteration: run) {
@@ -141,7 +141,7 @@ namespace mach5 {
 			return max;
 		}
 
-		double iterationsSlowest(std::vector<std::vector<double>> results) {
+		double iterationsFastest(std::vector<std::vector<double>> results) {
 			double min = results[0][0];
 			for (auto run : results) {
 				for (auto iteration: run) {
@@ -165,20 +165,20 @@ namespace mach5 {
 		}
 
 		double runsFastest(std::vector<std::vector<double>> results) {
-			double max = 0;
+			double max = runTotalTime(results[0]);
 			for (auto run : results) {
 				auto current = runTotalTime(run);
-				if (max < current)
+				if (max > current)
 					max = current;
 			}
 			return max;
 		}
 
 		double runsSlowest(std::vector<std::vector<double>> results) {
-			double min = runTotalTime(results[0]);
+			double min = 0;
 			for (auto run : results) {
 				auto current = runTotalTime(run);
-				if (min > current)
+				if (min < current)
 					min = current;
 			}
 			return min;
